@@ -1,0 +1,1 @@
+# aurelia-cordova-skeleton
