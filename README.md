@@ -7,7 +7,11 @@ Before you start, make sure you have a recent version of [NodeJS](http://nodejs.
 From the project folder, execute the following commands:
 
 ```shell
-yarn install
+yarn install 
+```
+or
+```shell
+npm install 
 ```
 
 This will install all required dependencies, including a local version of Webpack that is going to
@@ -18,6 +22,11 @@ To run the app execute the following command:
 ```shell
 yarn start
 ```
+or
+```shell
+npm start
+```
+
 
 This command starts the webpack development server that serves the build bundles.
 You can now browse the skeleton app at http://localhost:8080 (or the next available port, notice the output of the command). Changes in the code
