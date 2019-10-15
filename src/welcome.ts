@@ -1,10 +1,24 @@
 //import {computedFrom} from 'aurelia-framework';
+import { CordovaEvents } from './cordova-events';
+import { inject } from 'aurelia-framework';
+
+@inject(CordovaEvents)
 
 export class Welcome {
-  heading: string = 'Welcome to the Aurelia Navigation App';
+  heading: string = 'Welcome to the Aurelia Cordova Skeleton App';
   firstName: string = 'John';
   lastName: string = 'Doe';
   previousValue: string = this.fullName;
+  public cordovaEvents: CordovaEvents;
+  public isCordova: boolean;
+
+  constructor(cordovaEvents: CordovaEvents) {
+    this.cordovaEvents = cordovaEvents;
+    this.getDeviceStatus();
+    if (this.isCordova == undefined) {
+      this.isCordova = false;
+    }
+  }
 
   //Getters can't be directly observed, so they must be dirty checked.
   //However, if you tell Aurelia the dependencies, it no longer needs to dirty check the property.
@@ -18,6 +32,10 @@ export class Welcome {
   submit() {
     this.previousValue = this.fullName;
     alert(`Welcome, ${this.fullName}!`);
+  }
+
+  public async getDeviceStatus() {
+      this.isCordova =  await this.cordovaEvents.waitForDeviceReady();
   }
 
   canDeactivate(): boolean | undefined {

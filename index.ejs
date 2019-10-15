@@ -16,5 +16,8 @@
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>
     <% } %>
+    <% if (htmlWebpackPlugin.options.metadata.isCordova) { %>
+      <script type="text/javascript" src="cordova.js"></script>
+      <% } %>
   </body>
 </html>

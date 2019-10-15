@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -17,6 +18,7 @@ const outDir = path.resolve(__dirname, 'www');
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const baseUrl = '';
+const isCordova = false;
 
 const cssRules = [
   { loader: 'css-loader' },
@@ -92,6 +94,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({IS_CORDOVA: JSON.stringify(isCordova)}),
     new AureliaPlugin(),
     new ProvidePlugin({
       'Promise': 'bluebird',
@@ -110,7 +113,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       } : undefined,
       metadata: {
         // available in index.ejs //
-        title, server, baseUrl
+        title, server, baseUrl, isCordova
       },
     }),
     new CopyWebpackPlugin([
