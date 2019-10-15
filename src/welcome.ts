@@ -11,6 +11,7 @@ export class Welcome {
   previousValue: string = this.fullName;
   public cordovaEvents: CordovaEvents;
   public isCordova: boolean;
+  public networkState: any;
 
   constructor(cordovaEvents: CordovaEvents) {
     this.cordovaEvents = cordovaEvents;
@@ -18,7 +19,8 @@ export class Welcome {
     if (this.isCordova == undefined) {
       this.isCordova = false;
     }
-  }
+    this.networkState = this.cordovaEvents.checkConnections();
+    }
 
   //Getters can't be directly observed, so they must be dirty checked.
   //However, if you tell Aurelia the dependencies, it no longer needs to dirty check the property.
