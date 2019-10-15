@@ -15,29 +15,32 @@ export class Welcome {
 
   constructor(cordovaEvents: CordovaEvents) {
     this.cordovaEvents = cordovaEvents;
-    this.getDeviceStatus();
-    if (this.isCordova == undefined) {
-      this.isCordova = false;
-    }
-    this.networkState = this.cordovaEvents.checkConnections();
-    }
+    this.initCordova();
+  }
 
-  //Getters can't be directly observed, so they must be dirty checked.
-  //However, if you tell Aurelia the dependencies, it no longer needs to dirty check the property.
-  //To optimize by declaring the properties that this getter is computed from, uncomment the line below
-  //as well as the corresponding import above.
-  //@computedFrom('firstName', 'lastName')
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  submit() {
+  public submit() {
     this.previousValue = this.fullName;
     alert(`Welcome, ${this.fullName}!`);
   }
 
   public async getDeviceStatus() {
-      this.isCordova =  await this.cordovaEvents.waitForDeviceReady();
+    this.isCordova = await this.cordovaEvents.waitForDeviceReady();
+  }
+
+  private initCordova() {
+    this.getDeviceStatus();
+    if (this.isCordova == undefined) {
+      this.isCordova = false;
+    }
+    if (this.isCordova == true) {
+      this.networkState = this.cordovaEvents.checkConnections();
+    } else {
+      this.networkState = "no cordova";
+    }
   }
 
   canDeactivate(): boolean | undefined {

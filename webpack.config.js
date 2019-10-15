@@ -18,7 +18,7 @@ const outDir = path.resolve(__dirname, 'www');
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const baseUrl = '';
-const isCordova = true;
+const isCordova = false;
 
 const cssRules = [
   { loader: 'css-loader' },
