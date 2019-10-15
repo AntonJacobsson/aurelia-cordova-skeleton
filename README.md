@@ -57,6 +57,11 @@ cordova platform add android
 cordova platform add browser
 ```
 
+Set isCordova variable in webpack.config.js
+```shell
+const isCordova = true;
+```
+
 To run the app 
 ```shell
 cordova run android
