@@ -1,3 +1,23 @@
+body {
+  background-color:  #121212!important;
+}
+h2 {
+  color: rgba(255,255,255,0.87);
+}
+.form-group label {
+  color: rgba(255,255,255,0.6);
+}
+.form-group p {
+  color: rgba(255,255,255,0.87);
+}
+.form-group input {
+  background: rgba(255,255,255,0.87);
+  color: #121212;
+}
+.au-target p {
+  color: rgba(255,255,255,0.87);
+}
+
 .splash {
   text-align: center;
   margin: 10% 0 0 0;
@@ -43,6 +63,7 @@
 
 section {
   margin: 0 20px;
+  margin-top: 10px;
 }
 
 .navbar-nav li.loader {
