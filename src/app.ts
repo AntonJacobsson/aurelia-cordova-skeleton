@@ -10,14 +10,14 @@ export class App {
       {
         route: ["", "welcome"],
         name: "welcome",
-        moduleId: PLATFORM.moduleName("./welcome"),
+        moduleId: PLATFORM.moduleName("./welcome/welcome"),
         nav: true,
         title: "Welcome"
       },
       {
         route: "users",
         name: "users",
-        moduleId: PLATFORM.moduleName("./users"),
+        moduleId: PLATFORM.moduleName("./users/users"),
         nav: true,
         title: "Github Users"
       },

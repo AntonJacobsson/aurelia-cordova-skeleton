@@ -101,6 +101,7 @@ div.au-stagger {
   padding: 0;
   color: rgb(136, 172, 217);
   margin-bottom: 32px;
+  background-color: rgba(18,18,18, 0.87);
   /* box-shadow: 0 0 5px rgba(0, 0, 0, .5); */
 }
 

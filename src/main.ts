@@ -2,7 +2,7 @@
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import '../static/styles.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../src/nav-bar.css'
+import './components/nav-bar/nav-bar.css'
 import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import * as Bluebird from 'bluebird';
