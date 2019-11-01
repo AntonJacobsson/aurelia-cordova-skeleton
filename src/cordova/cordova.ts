@@ -9,6 +9,7 @@ export class Cordova {
 
   constructor(cordovaEvents: CordovaEvents) {
     this.cordovaEvents = cordovaEvents;
+    this.getDeviceStatus();
   }
 
   public async getDeviceStatus() {
