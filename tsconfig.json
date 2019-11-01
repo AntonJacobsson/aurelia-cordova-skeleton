@@ -18,9 +18,5 @@
     "static",
     "www",
     "platforms"
-    // "package-scripts.js",
-    // "plugins",
-    // "test",
-    // "webpack.config.js"
   ]
 }
