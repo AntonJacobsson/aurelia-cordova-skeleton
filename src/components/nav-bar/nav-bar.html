@@ -2,7 +2,7 @@
   <div class="nav-fixed-bottom">
     <div repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active' : ''}">
       <a href.bind="row.href" class="nav-link">
-        <img width="24px" src="../../../static/notepad-icon.png">
+        <img width="24px" class="invert-icon"src="../../../static/notepad-icon.png">
         <p>${row.title}</p>
       </a>
     </div>
