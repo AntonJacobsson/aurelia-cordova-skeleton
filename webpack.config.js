@@ -22,7 +22,7 @@ const cssRules = [
 ];
 
 
-module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, host } = {}) => ({
+module.exports = ({ production } = {}, {analyze, hmr, port, host } = {}) => ({
   resolve: {
     extensions: ['.ts', '.js'],
     modules: [srcDir, 'node_modules'],
@@ -92,18 +92,15 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        issuer: [{ not: [{ test: /\.html$/i }] }],
-        use: extractCss ? [{
-          loader: MiniCssExtractPlugin.loader
-        }, ...cssRules
-        ] : ['style-loader', ...cssRules]
-      },
-      {
-        test: /\.css$/i,
-        issuer: [{ test: /\.html$/i }],
-       
-        use: cssRules
+        test: /\.s[ac]ss$/i,
+        use: [
+          // fallback to style-loader in development
+          production !== true
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
       },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.ts$/, loader: "ts-loader" },
@@ -115,16 +112,11 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
       { test: /environment\.json$/i, use: [
         {loader: "app-settings-loader", options: {env: production ? 'production' : 'development' }},
-      ]},
-      ...when(tests, {
-        test: /\.[jt]s$/i, loader: 'istanbul-instrumenter-loader',
-        include: srcDir, exclude: [/\.(spec|test)\.[jt]s$/i],
-        enforce: 'post', options: { esModules: true },
-      })
+      ]}
     ]
   },
   plugins: [
-    ...when(!tests, new DuplicatePackageCheckerPlugin()),
+    new DuplicatePackageCheckerPlugin(),
     new AureliaPlugin(),
     new ModuleDependenciesPlugin({
       'aurelia-testing': ['./compile-spy', './view-spy']
@@ -136,12 +128,15 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       }
     }),
     
-    ...when(extractCss, new MiniCssExtractPlugin({ 
-      filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
-      chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
-    })),
-    ...when(!tests, new CopyWebpackPlugin([
-      { from: 'static', to: outDir, ignore: ['.*'] }])),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+
+    new CopyWebpackPlugin([
+      { from: 'static', to: outDir, ignore: ['.*'] }]),
     ...when(analyze, new BundleAnalyzerPlugin()),
     new CleanWebpackPlugin()
   ]
