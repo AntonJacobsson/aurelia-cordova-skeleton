@@ -140,11 +140,6 @@ module.exports = ({ production } = {}, {analyze, hmr, port, host } = {}) => ({
         { from: 'static', to: outDir },
       ],
     }),
-
-    // new CopyWebpackPlugin([
-    //   { from: 'static', to: outDir, ignore: ['.*'] }]),
-
-
     ...when(analyze, new BundleAnalyzerPlugin()),
     new CleanWebpackPlugin()
   ]
